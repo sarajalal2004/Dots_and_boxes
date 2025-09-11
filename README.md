@@ -26,10 +26,10 @@
 
 ***
 ### ***Future update***
-- [ ] Add cool styling
-- [ ] add additional color customization setting
-- [ ] add additional language customization setting
-- [ ] Add play against computer option
+- [ ] Cool styling
+- [ ] Additional color customization setting
+- [ ] Additional language customization setting
+- [ ] Play against computer option
 ***
 ### ***Credits***
 
