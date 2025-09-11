@@ -26,12 +26,10 @@
 
 ***
 ### ***Future update***
-- [ ] Future Update 1
-- [ ] Future Update 2
-- [x] Completed Update
-- [x] ~~Strikethrough~~ Items Also
+- [ ] Add cool styling
+- [ ] add additional color customization setting
+- [ ] add additional language customization setting
+- [ ] Add play against computer option
 ***
 ### ***Credits***
-##### Funny Images: [DuckDuckGo Search](http://www.duckduckgo.com)  
-##### Markdown Guide: [ia.net](https://ia.net/writer/support/basics/markdown-guide)  
-##### Markdown Cheatsheet: [here](https://www.markdownguide.org/cheat-sheet/)
+
