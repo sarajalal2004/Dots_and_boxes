@@ -11,7 +11,7 @@
     * HTML
     * CSS
     * JavaScript
-* gitHub
+* gitHub / gitBash
 ***
 ### ***Getting Started***
 ##### choose the desired setting and click start, thus navigate to the game.  
