@@ -1,3 +1,37 @@
 body {
-  background-color: aqua;
+  background-color: azure;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+main {
+  width: 100%;
+  height: 80%;
+}
+#gameBoard {
+  display: grid;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+}
+div {
+  background-color: cadetblue;
+}
+.border {
+  background-color: gainsboro;
+}
+.horizontal {
+  background-color: khaki;
+}
+.vertical {
+  background-color: violet;
+}
+.box {
+  background-color: darksalmon;
+}
+.dot {
+  background-color: hotpink;
 }
