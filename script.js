@@ -2,6 +2,10 @@
 let turn = true // track the users turns
 let player1 = "Sara" // name of first player
 let player2 = "Ruqaya" // name of second player
+let playerScore1 = 0
+let playerScore2 = 0
+const playerScore1Display = document.querySelector("#playerScore1")
+const playerScore2Display = document.querySelector("#playerScore2")
 const width = 7 // number of boxes columns
 const height = 4 // number of boxes rows
 let choiceCount = 0 // count the number of selected borders
@@ -11,8 +15,8 @@ const line = 2 * width + 1 // number of borders associate to line of boxes ignor
 const numberOfGridDivs = (2 * width + 1) * (2 * height + 1) // the number of all grid divs
 let borders // access the array of borders DOM
 let boxes // access the array of boxes DOM
-let gameBoard = document.querySelector("#gameBoard") // access the game board DOM object
-let turnMessage = document.querySelector("#turnMessage") // access the turn massage DOM object
+const gameBoard = document.querySelector("#gameBoard") // access the game board DOM object
+const turnMessage = document.querySelector("#turnMessage") // access the turn massage DOM object
 // functions
 let startUI = () => {
   turnMessage.innerText = player1
@@ -41,6 +45,19 @@ let startUI = () => {
   boxes = document.querySelectorAll(".box")
 }
 
+let adjustWhenCompletedBox = (completedBoxIndex) => {
+  if (turn) {
+    boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
+    playerScore1++
+    playerScore1Display.innerText = playerScore1
+  } else {
+    boxes[completedBoxIndex].style.backgroundColor = "blue"
+    playerScore2++
+    playerScore2Display.innerText = playerScore2
+  }
+  choiceCount++
+}
+
 let checkWinHorizontal = (index) => {
   isABoxCompleted = false
   let completedBoxIndex
@@ -55,7 +72,7 @@ let checkWinHorizontal = (index) => {
       console.log("upSquare")
       completedBoxIndex =
         (index % line) + width * (Math.floor(index / line) - 1)
-      boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
+      adjustWhenCompletedBox(completedBoxIndex)
       isABoxCompleted = true
     }
   }
@@ -69,7 +86,7 @@ let checkWinHorizontal = (index) => {
     ) {
       console.log("downSquare")
       completedBoxIndex = (index % line) + width * Math.floor(index / line)
-      boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
+      adjustWhenCompletedBox(completedBoxIndex)
       isABoxCompleted = true
     }
   }
@@ -90,7 +107,7 @@ let checkWinVertical = (index) => {
       completedBoxIndex =
         (index % line) - width - 1 + width * Math.floor(index / line)
       console.log(completedBoxIndex)
-      boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
+      adjustWhenCompletedBox(completedBoxIndex)
       isABoxCompleted = true
     }
   }
@@ -105,7 +122,7 @@ let checkWinVertical = (index) => {
       console.log("rightSquare")
       completedBoxIndex =
         (index % line) - width + width * Math.floor(index / line)
-      boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
+      adjustWhenCompletedBox(completedBoxIndex)
       isABoxCompleted = true
     }
   }
@@ -131,7 +148,6 @@ borders.forEach((border, index) => {
     if (!border.classList.contains("clicked")) {
       border.classList.add("clicked")
       if (checkWinBox(index)) {
-        choiceCount++
         if (choiceCount >= width * height) {
           // complete
         }
