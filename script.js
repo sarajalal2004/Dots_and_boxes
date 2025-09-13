@@ -3,15 +3,15 @@ let turn = true // track the users turns
 let player1 = "Sara" // name of first player
 let player2 = "Ruqaya" // name of second player
 const width = 7 // number of boxes columns
-const height = 3 // number of boxes rows
+const height = 4 // number of boxes rows
 let choiceCount = 0 // count the number of selected borders
 let addedCount = 0 // count index of border added to UI
 let isBorder = false // for adding to UI, know if border class needed
 const line = 2 * width + 1 // number of borders associate to line of boxes ignoring the bottom borders
 const numberOfGridDivs = (2 * width + 1) * (2 * height + 1) // the number of all grid divs
 let borders // access the array of borders DOM
+let boxes // access the array of boxes DOM
 let gameBoard = document.querySelector("#gameBoard") // access the game board DOM object
-let boxes = document.querySelectorAll(".box") // access the array of boxes DOM
 let turnMessage = document.querySelector("#turnMessage") // access the turn massage DOM object
 // functions
 let startUI = () => {
@@ -38,72 +38,86 @@ let startUI = () => {
     100 / (1.25 * width)
   }vh) 15px`
   borders = document.querySelectorAll(".border")
+  boxes = document.querySelectorAll(".box")
 }
 
 let checkWinHorizontal = (index) => {
-  if (borders[index].classList.contains("horizontal")) {
-    if (index > width) {
-      //check up
-      console.log("up")
-      if (
-        borders[index - width].classList.contains("clicked") &&
-        borders[index - width - 1].classList.contains("clicked") &&
-        borders[index - 2 * width - 1].classList.contains("clicked")
-      ) {
-        console.log("upSquare")
-        return true
-      }
-    }
-    if (index < line * height) {
-      // check down
-      console.log("down")
-      if (
-        borders[index + width].classList.contains("clicked") &&
-        borders[index + width + 1].classList.contains("clicked") &&
-        borders[index + 2 * width + 1].classList.contains("clicked")
-      ) {
-        console.log("downSquare")
-        return true
-      }
+  isABoxCompleted = false
+  let completedBoxIndex
+  if (index > width) {
+    //check up
+    console.log("up")
+    if (
+      borders[index - width].classList.contains("clicked") &&
+      borders[index - width - 1].classList.contains("clicked") &&
+      borders[index - 2 * width - 1].classList.contains("clicked")
+    ) {
+      console.log("upSquare")
+      completedBoxIndex =
+        (index % line) + width * (Math.floor(index / line) - 1)
+      boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
+      isABoxCompleted = true
     }
   }
-  return false
+  if (index < line * height) {
+    // check down
+    console.log("down")
+    if (
+      borders[index + width].classList.contains("clicked") &&
+      borders[index + width + 1].classList.contains("clicked") &&
+      borders[index + 2 * width + 1].classList.contains("clicked")
+    ) {
+      console.log("downSquare")
+      completedBoxIndex = (index % line) + width * Math.floor(index / line)
+      boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
+      isABoxCompleted = true
+    }
+  }
+  return isABoxCompleted
 }
 
 let checkWinVertical = (index) => {
-  if (borders[index].classList.contains("vertical")) {
-    if (index % line != width) {
-      //check left
-      console.log("left")
-      if (
-        borders[index - 1].classList.contains("clicked") &&
-        borders[index - width - 1].classList.contains("clicked") &&
-        borders[index + width].classList.contains("clicked")
-      ) {
-        console.log("leftSquare")
-        return true
-      }
-    }
-    if (index % line != line - 1) {
-      // check right
-      console.log("right")
-      if (
-        borders[index + 1].classList.contains("clicked") &&
-        borders[index + width + 1].classList.contains("clicked") &&
-        borders[index - width].classList.contains("clicked")
-      ) {
-        console.log("rightSquare")
-        return true
-      }
+  isABoxCompleted = false
+  if (index % line != width) {
+    //check left
+    console.log("left")
+    if (
+      borders[index - 1].classList.contains("clicked") &&
+      borders[index - width - 1].classList.contains("clicked") &&
+      borders[index + width].classList.contains("clicked")
+    ) {
+      console.log("leftSquare")
+      completedBoxIndex =
+        (index % line) - width - 1 + width * Math.floor(index / line)
+      console.log(completedBoxIndex)
+      boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
+      isABoxCompleted = true
     }
   }
-  return false
+  if (index % line != line - 1) {
+    // check right
+    console.log("right")
+    if (
+      borders[index + 1].classList.contains("clicked") &&
+      borders[index + width + 1].classList.contains("clicked") &&
+      borders[index - width].classList.contains("clicked")
+    ) {
+      console.log("rightSquare")
+      completedBoxIndex =
+        (index % line) - width + width * Math.floor(index / line)
+      boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
+      isABoxCompleted = true
+    }
+  }
+  return isABoxCompleted
 }
 
 let checkWinBox = (index) => {
   console.log(index)
-  if (checkWinHorizontal(index) || checkWinVertical(index)) {
-    return true
+  if (borders[index].classList.contains("horizontal")) {
+    if (checkWinHorizontal(index)) return true
+  } else if (borders[index].classList.contains("vertical")) {
+    if (checkWinVertical(index)) return true
   }
   return false
 }
