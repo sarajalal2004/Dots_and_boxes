@@ -8,8 +8,10 @@
 
 //////////////////////////// playes variables - containing scores, turn, names - ////////////////////////////
 let turn = true // track the users turns
-let player1 = "Sara" // name of first player
-let player2 = "Ruqaya" // name of second player
+const playerName1 = sessionStorage.getItem("playerName1") // name of first player
+const playerName2 = sessionStorage.getItem("playerName2") // name of second player
+const playerNameDisplay1 = document.querySelector("#playerName1")
+const playerNameDisplay2 = document.querySelector("#playerName2")
 let playerScore1 = 0
 let playerScore2 = 0
 const playerScore1Display = document.querySelector("#playerScore1")
@@ -22,19 +24,22 @@ let choiceCount = 0 // count the number of selected borders
 const line = 2 * width + 1 // number of borders associate to line of boxes ignoring the bottom borders
 const numberOfGridDivs = (2 * width + 1) * (2 * height + 1) // the number of all grid divs
 
-////////////////////////////// DOM objects variables - accessing DOM objects - //////////////////////////////
+////////////////////////// Other DOM objects variables - accessing DOM objects - ///////////////////////////
 let borders // access the array of borders DOM
 let boxes // access the array of boxes DOM
 const gameBoard = document.querySelector("#gameBoard") // access the game board DOM object
 const turnMessage = document.querySelector("#turnMessage") // access the turn massage DOM object
 const resetButton = document.querySelector("#reset")
+const redirect = document.querySelector("#redirect")
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////// functions /////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let startUI = () => {
   let isBorder = false // for adding to UI, know if border class needed
-  turnMessage.innerText = player1
+  turnMessage.innerText = playerName1
+  playerNameDisplay1.innerText = playerName1
+  playerNameDisplay2.innerText = playerName2
   for (let lineCount = 0; lineCount < 2 * height + 1; lineCount++) {
     for (let itemCount = 0; itemCount < line; itemCount++) {
       twoLinesCount = Math.floor(lineCount / 2)
@@ -129,10 +134,9 @@ let checkWinBox = (index) => {
   return isABoxCompleted
 }
 
-//logic
+// event listener
 startUI()
 
-// event listener
 borders.forEach((border, index) => {
   border.addEventListener("click", () => {
     if (!border.classList.contains("clicked")) {
@@ -144,8 +148,8 @@ borders.forEach((border, index) => {
       } else {
         turn = !turn
         turn
-          ? (turnMessage.innerText = player1)
-          : (turnMessage.innerText = player2)
+          ? (turnMessage.innerText = playerName1)
+          : (turnMessage.innerText = playerName2)
       }
     }
   })
@@ -153,6 +157,7 @@ borders.forEach((border, index) => {
 
 resetButton.addEventListener("click", () => {
   turn = true
+  turnMessage.innerText = playerName1
   playerScore1 = 0
   playerScore2 = 0
   playerScore1Display.innerText = "0"
