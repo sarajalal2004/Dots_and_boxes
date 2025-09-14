@@ -19,7 +19,6 @@ const playerScore2Display = document.querySelector("#playerScore2")
 const width = 7 // number of boxes columns
 const height = 4 // number of boxes rows
 let choiceCount = 0 // count the number of selected borders
-let addedCount = 0 // count index of border added to UI
 const line = 2 * width + 1 // number of borders associate to line of boxes ignoring the bottom borders
 const numberOfGridDivs = (2 * width + 1) * (2 * height + 1) // the number of all grid divs
 
@@ -28,6 +27,7 @@ let borders // access the array of borders DOM
 let boxes // access the array of boxes DOM
 const gameBoard = document.querySelector("#gameBoard") // access the game board DOM object
 const turnMessage = document.querySelector("#turnMessage") // access the turn massage DOM object
+const resetButton = document.querySelector("#reset")
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////// functions /////////////////////////////////////////////////
@@ -84,7 +84,6 @@ let startUI = () => {
           : newDiv.classList.add("dot")
       }
 
-      addedCount++
       isBorder = !isBorder
     }
   }
@@ -149,5 +148,19 @@ borders.forEach((border, index) => {
           : (turnMessage.innerText = player2)
       }
     }
+  })
+})
+
+resetButton.addEventListener("click", () => {
+  turn = true
+  playerScore1 = 0
+  playerScore2 = 0
+  playerScore1Display.innerText = "0"
+  playerScore2Display.innerText = "0"
+  borders.forEach((border) => {
+    if (border.classList.contains("clicked")) border.classList.toggle("clicked")
+  })
+  boxes.forEach((box) => {
+    box.style.backgroundColor = "cadetblue"
   })
 })
