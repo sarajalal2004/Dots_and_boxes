@@ -6,12 +6,14 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  text-align: center;
 }
 #gameBoard {
   display: grid;
 }
-div {
-  background-color: cadetblue;
+header {
+  position: relative;
+  width: 100vw;
 }
 .border {
   background-color: gainsboro;
@@ -30,4 +32,21 @@ div {
 }
 .clicked {
   background-color: black;
+}
+#scores {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+}
+.playerDisplay {
+  margin: 0 30px;
+}
+.playerDisplay * {
+  display: inline-block;
+}
+#reset {
+  position: absolute;
+  left: 40px;
+  top: 20px;
+  font-size: 25px;
 }
