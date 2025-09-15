@@ -26,7 +26,7 @@
 
 ***
 ### ***Future update***
-- [ ] support multi board sizes
+- [x] support multi board sizes
 - [ ] support 3/4 playes
 - [ ] Cool styling
 - [ ] Additional color customization setting
