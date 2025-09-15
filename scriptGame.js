@@ -18,8 +18,8 @@ const playerScore1Display = document.querySelector("#playerScore1")
 const playerScore2Display = document.querySelector("#playerScore2")
 
 //////////////////////////// game variables - containing dimensions and counts - ////////////////////////////
-const width = 7 // number of boxes columns
-const height = 4 // number of boxes rows
+const width = parseInt(sessionStorage.getItem("boardDimension")[1]) // number of boxes columns
+const height = parseInt(sessionStorage.getItem("boardDimension")[0]) // number of boxes rows
 let choiceCount = 0 // count the number of selected borders
 const line = 2 * width + 1 // number of borders associate to line of boxes ignoring the bottom borders
 const numberOfGridDivs = (2 * width + 1) * (2 * height + 1) // the number of all grid divs

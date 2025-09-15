@@ -50,3 +50,19 @@ header {
   top: 20px;
   font-size: 25px;
 }
+
+#boardSizesDiv {
+  display: flex;
+  border-radius: 25px;
+  background-color: white;
+  border: 1px solid gainsboro;
+}
+
+.boardSizes {
+  padding: 15px 20px;
+}
+
+.selected {
+  border-radius: 25px;
+  background-color: rgb(229, 229, 229);
+}
