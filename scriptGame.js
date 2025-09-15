@@ -6,16 +6,41 @@
 ////////////////////////////////////////////// Global variables /////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//////////////////////////// playes variables - containing scores, turn, names - ////////////////////////////
-let turn = true // track the users turns
-const playerName1 = sessionStorage.getItem("playerName1") // name of first player
-const playerName2 = sessionStorage.getItem("playerName2") // name of second player
-const playerNameDisplay1 = document.querySelector("#playerName1")
-const playerNameDisplay2 = document.querySelector("#playerName2")
-let playerScore1 = 0
-let playerScore2 = 0
-const playerScore1Display = document.querySelector("#playerScore1")
-const playerScore2Display = document.querySelector("#playerScore2")
+//////////////////////////// players variables - containing scores, turn, names - ////////////////////////////
+let players = [
+  {
+    playerName: sessionStorage.getItem("playerName1"),
+    playerNameDisplay: document.querySelector("#playerName1"),
+    playerScore: 0,
+    playerScoreDisplay: document.querySelector("#playerScore1"),
+    color: "lightcoral",
+  },
+  {
+    playerName: sessionStorage.getItem("playerName2"),
+    playerNameDisplay: document.querySelector("#playerName2"),
+    playerScore: 0,
+    playerScoreDisplay: document.querySelector("#playerScore2"),
+    color: "blue",
+  },
+  {
+    playerName: sessionStorage.getItem("playerName3"),
+    playerNameDisplay: document.querySelector("#playerName3"),
+    playerScore: 0,
+    playerScoreDisplay: document.querySelector("#playerScore3"),
+    playerDiv: document.querySelector("#player3"),
+    color: "green",
+  },
+  {
+    playerName: sessionStorage.getItem("playerName4"),
+    playerNameDisplay: document.querySelector("#playerName4"),
+    playerScore: 0,
+    playerScoreDisplay: document.querySelector("#playerScore4"),
+    playerDiv: document.querySelector("#player4"),
+    color: "yellow",
+  },
+]
+const numberOfPlayers = parseInt(sessionStorage.getItem("numberOfPlayers"))
+let turnIndex = 0
 
 //////////////////////////// game variables - containing dimensions and counts - ////////////////////////////
 const width = parseInt(sessionStorage.getItem("boardDimension")[1]) // number of boxes columns
@@ -37,9 +62,17 @@ const redirect = document.querySelector("#redirect")
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 let startUI = () => {
   let isBorder = false // for adding to UI, know if border class needed
-  turnMessage.innerText = playerName1
-  playerNameDisplay1.innerText = playerName1
-  playerNameDisplay2.innerText = playerName2
+  turnMessage.innerText = players[0].playerName
+  players[0].playerNameDisplay.innerText = players[0].playerName
+  players[1].playerNameDisplay.innerText = players[1].playerName
+  if (numberOfPlayers >= 3) {
+    players[2].playerDiv.style.display = "block"
+    players[2].playerNameDisplay.innerText = players[2].playerName
+  }
+  if (numberOfPlayers === 4) {
+    players[3].playerDiv.style.display = "block"
+    players[3].playerNameDisplay.innerText = players[3].playerName
+  }
   for (let lineCount = 0; lineCount < 2 * height + 1; lineCount++) {
     for (let itemCount = 0; itemCount < line; itemCount++) {
       twoLinesCount = Math.floor(lineCount / 2)
@@ -103,15 +136,10 @@ let startUI = () => {
 }
 
 let adjustWhenCompletedBox = (completedBoxIndex) => {
-  if (turn) {
-    boxes[completedBoxIndex].style.backgroundColor = "lightcoral"
-    playerScore1++
-    playerScore1Display.innerText = playerScore1
-  } else {
-    boxes[completedBoxIndex].style.backgroundColor = "blue"
-    playerScore2++
-    playerScore2Display.innerText = playerScore2
-  }
+  boxes[completedBoxIndex].style.backgroundColor = players[turnIndex].color
+  players[turnIndex].playerScore++
+  players[turnIndex].playerScoreDisplay.innerText =
+    players[turnIndex].playerScore
   choiceCount++
 }
 
@@ -134,7 +162,9 @@ let checkWinBox = (index) => {
   return isABoxCompleted
 }
 
-// event listener
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////// Event Listeners //////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 startUI()
 
 borders.forEach((border, index) => {
@@ -146,22 +176,20 @@ borders.forEach((border, index) => {
           // complete
         }
       } else {
-        turn = !turn
-        turn
-          ? (turnMessage.innerText = playerName1)
-          : (turnMessage.innerText = playerName2)
+        turnIndex = (turnIndex + 1) % numberOfPlayers
+        turnMessage.innerText = players[turnIndex].playerName
       }
     }
   })
 })
 
 resetButton.addEventListener("click", () => {
-  turn = true
-  turnMessage.innerText = playerName1
-  playerScore1 = 0
-  playerScore2 = 0
-  playerScore1Display.innerText = "0"
-  playerScore2Display.innerText = "0"
+  turnIndex = 0
+  turnMessage.innerText = players[0].playerName
+  for (let i = 0; i < numberOfPlayers; i++) {
+    players[i].playerScore = 0
+    players[i].playerScoreDisplay.innerText = "0"
+  }
   borders.forEach((border) => {
     if (border.classList.contains("clicked")) border.classList.toggle("clicked")
   })
