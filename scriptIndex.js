@@ -30,12 +30,12 @@ numberOfPlayersList.forEach((num) => {
         document.querySelector("#player4Index").style.display = "none"
         break
       case "numberOfPlayer3":
-        document.querySelector("#player3Index").style.display = "block"
+        document.querySelector("#player3Index").style.display = "flex"
         document.querySelector("#player4Index").style.display = "none"
         break
       case "numberOfPlayer4":
-        document.querySelector("#player3Index").style.display = "block"
-        document.querySelector("#player4Index").style.display = "block"
+        document.querySelector("#player3Index").style.display = "flex"
+        document.querySelector("#player4Index").style.display = "flex"
         break
     }
   })

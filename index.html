@@ -7,7 +7,7 @@
     <script defer src="scriptIndex.js"></script>
     <title>Dots and Boxes</title>
   </head>
-  <body>
+  <body id="indexPage">
     <h1>DOTS & BOXES</h1>
     <section id="boardSizesSection">
       <h3>Board Size:</h3>
@@ -17,7 +17,7 @@
         <div class="boardSizes" id="boardSize3">6 x 9</div>
       </div>
     </section>
-    <section id="sSection">
+    <section id="section">
       <h3>Number Of Players:</h3>
       <div id="numberOfPlayersDiv">
         <div class="numberOfPlayers selected" id="numberOfPlayer2">2</div>
@@ -26,20 +26,44 @@
       </div>
     </section>
     <div class="playerDisplay" id="player1Index">
-      <h5>player 1</h5>
-      <input type="text" name="playerName1" id="playerName1" />
+      <h5 class="playerText">player 1</h5>
+      <input
+        class="playerInput"
+        type="text"
+        name="playerName1"
+        id="playerName1"
+        maxlength="18"
+      />
     </div>
     <div class="playerDisplay" id="player2Index">
-      <h5>player 2</h5>
-      <input type="text" name="playerName2" id="playerName2" />
+      <h5 class="playerText">player 2</h5>
+      <input
+        class="playerInput"
+        type="text"
+        name="playerName2"
+        id="playerName2"
+        maxlength="18"
+      />
     </div>
     <div class="playerDisplay" id="player3Index">
-      <h5>player 3</h5>
-      <input type="text" name="playerName3" id="playerName3" />
+      <h5 class="playerText">player 3</h5>
+      <input
+        class="playerInput"
+        type="text"
+        name="playerName3"
+        id="playerName3"
+        maxlength="18"
+      />
     </div>
     <div class="playerDisplay" id="player4Index">
-      <h5>player 4</h5>
-      <input type="text" name="playerName4" id="playerName4" />
+      <h5 class="playerText">player 4</h5>
+      <input
+        class="playerInput"
+        type="text"
+        name="playerName4"
+        id="playerName4"
+        maxlength="18"
+      />
     </div>
     <button id="redirect" type="button">Start</button>
   </body>
