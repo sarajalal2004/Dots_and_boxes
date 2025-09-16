@@ -55,7 +55,11 @@ let boxes // access the array of boxes DOM
 const gameBoard = document.querySelector("#gameBoard") // access the game board DOM object
 const turnMessage = document.querySelector("#turnMessage") // access the turn massage DOM object
 const resetButton = document.querySelector("#reset")
+const playAgainButton = document.querySelector("#playAgain")
 const redirect = document.querySelector("#redirect")
+const completionPopUp = document.querySelector("#completionPopUp")
+const completionMassage = document.querySelector("#completionMassage")
+const winners = document.querySelector("#winners")
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////// functions /////////////////////////////////////////////////
@@ -174,6 +178,26 @@ borders.forEach((border, index) => {
       if (checkWinBox(index)) {
         if (choiceCount >= width * height) {
           // complete
+          let numberOfWinners = 0
+          let maxScore = Math.max(
+            players[0].playerScore,
+            players[1].playerScore,
+            players[2].playerScore,
+            players[3].playerScore
+          )
+          for (let i = 0; i < numberOfPlayers; i++) {
+            if (maxScore === players[i].playerScore) {
+              numberOfWinners++
+              winners.innerText += players[i].playerName + "\n"
+            }
+          }
+          if (numberOfWinners == numberOfPlayers) {
+            completionMassage.innerText = "Tie"
+            winners.style.display = "none"
+          } else {
+            completionMassage.innerText = "Winners"
+          }
+          completionPopUp.style.display = "block"
         }
       } else {
         turnIndex = (turnIndex + 1) % numberOfPlayers
@@ -196,4 +220,8 @@ resetButton.addEventListener("click", () => {
   boxes.forEach((box) => {
     box.style.backgroundColor = "cadetblue"
   })
+})
+
+playAgainButton.addEventListener("click", () => {
+  window.location.href = "index.html"
 })
