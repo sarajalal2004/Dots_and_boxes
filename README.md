@@ -28,7 +28,7 @@
 ### ***Future update***
 - [x] support multi board sizes
 - [X] support 3/4 playes
-- [ ] Cool styling
+- [X] Cool styling
 - [ ] Additional color customization setting
 - [ ] Additional language customization setting
 - [ ] Play against computer option
