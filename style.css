@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap");
-/* @import url("https://fonts.googleapis.com/css2?family=Galindo&display=swap"); */
-/* font-family: "Galindo", sans-serif; */
+
 * {
   font-family: "RocknRoll One", sans-serif;
   color: rgb(65, 65, 65);
@@ -17,13 +16,33 @@ body {
   text-align: center;
 }
 
+#gamePage {
+  justify-content: space-evenly;
+}
+
 #gameBoard {
   display: grid;
 }
 
 #gamePage header {
-  position: relative;
-  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90vw;
+  height: 10px;
+}
+
+#turnMessage {
+  padding: 10px 20px;
+  border-radius: 50px;
+  width: 150px;
+  font-size: 20px;
+  color: white;
+}
+
+i {
+  font-size: 30px;
+  color: #67568c;
 }
 
 #indexPage h1 {
@@ -33,17 +52,14 @@ body {
 .border {
   background-color: gainsboro;
 }
-.horizontal {
-  background-color: khaki;
-}
-.vertical {
-  background-color: violet;
-}
-.box {
-  background-color: cadetblue;
-}
 .dot {
-  background-color: hotpink;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  left: -4px;
+  top: -4px;
+  border-radius: 50%;
+  background-color: #67568c;
 }
 .clicked {
   background-color: black;
@@ -60,16 +76,11 @@ body {
 .playerDisplay * {
   display: inline-block;
 }
-#reset {
-  position: absolute;
-  left: 40px;
-  top: 20px;
-  font-size: 25px;
-}
 
 #boardSizesDiv,
 #numberOfPlayersDiv,
-.playerDisplay {
+.playerDisplay,
+.playerScoreDisplay {
   display: flex;
   justify-content: space-evenly;
   border-radius: 28px;
@@ -77,6 +88,26 @@ body {
   box-shadow: 0px 0px 4px #958f89;
   width: 285px;
   margin: 3px;
+}
+
+#scores {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.playerScoreDisplay {
+  border-radius: 28px;
+  background-color: white;
+  box-shadow: 0px 0px 4px #958f89;
+  width: 285px;
+  margin: 3px;
+}
+.playerText {
+  flex: 1;
+}
+
+.score {
+  flex: 1;
 }
 
 .boardSizes,
@@ -98,7 +129,8 @@ body {
   color: white;
 }
 
-#redirect {
+#redirect,
+#playAgain {
   border-radius: 25px;
   background-color: #67568c;
   width: 285px;
@@ -109,6 +141,10 @@ body {
   box-shadow: 0px 0px 5px #958f89;
 }
 
+#playAgain {
+  width: 85%;
+}
+
 #player3,
 #player4,
 #player3Index,
@@ -116,17 +152,70 @@ body {
   display: none;
 }
 
-#completionPopUp {
-  background-color: rgba(255, 255, 255, 0.9);
+#completion {
+  background: linear-gradient(
+    45deg,
+    rgba(65, 50, 97, 0.4),
+    rgba(172, 156, 212, 0.4)
+  );
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: absolute;
-  width: 50vw;
-  height: 50vh;
+  width: 100vw;
+  height: 100vh;
   display: none;
 }
+
+#completionPopUp {
+  background-color: #f5eee8;
+  box-shadow: 0px 0px 5px #958f89;
+  border-radius: 35px;
+  width: 28vw;
+  height: 42vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+}
+
+#completionStatus {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#completionTexts {
+  width: 30%;
+  padding-right: 10%;
+}
+
+#completionStatus img {
+  width: 40%;
+}
+
+#xContainer {
+  background-color: #f5eee8;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px #958f89;
+  align-self: flex-end;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 38px;
+  height: 38px;
+}
+
+#x {
+  position: relative;
+  left: -1px;
+  top: -1px;
+  font-size: 40px;
+}
+
 .playerInput {
   border: none;
   background-color: transparent;

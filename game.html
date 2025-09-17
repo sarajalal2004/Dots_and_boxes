@@ -13,36 +13,43 @@
   </head>
   <body id="gamePage">
     <header>
-      <div id="reset"><i class="fa-solid fa-arrow-rotate-left"></i></div>
-
-      <h1 id="turnMessage">player 1</h1>
+      <i id="goBack" class="fa-solid fa-circle-arrow-left"></i>
+      <h1 id="turnMessage"></h1>
+      <i id="reset" class="fa-solid fa-arrow-rotate-left"></i>
     </header>
     <div id="gameBoard"></div>
     <section id="scores">
-      <div class="playerDisplay" id="player1">
-        <h5 id="playerName1"></h5>
-        <p id="playerScore1">0</p>
+      <div class="playerScoreDisplay" id="player1">
+        <h5 class="playerText" id="playerName1"></h5>
+        <p class="score" id="playerScore1">0</p>
       </div>
-      <div class="playerDisplay" id="player2">
-        <h5 id="playerName2"></h5>
-        <p id="playerScore2">0</p>
+      <div class="playerScoreDisplay" id="player2">
+        <h5 class="playerText" id="playerName2"></h5>
+        <p class="score" id="playerScore2">0</p>
       </div>
-      <div class="playerDisplay" id="player3">
-        <h5 id="playerName3"></h5>
-        <p id="playerScore3">0</p>
+      <div class="playerScoreDisplay" id="player3">
+        <h5 class="playerText" id="playerName3"></h5>
+        <p class="score" id="playerScore3">0</p>
       </div>
-      <div class="playerDisplay" id="player4">
-        <h5 id="playerName4"></h5>
-        <p id="playerScore4">0</p>
+      <div class="playerScoreDisplay" id="player4">
+        <h5 class="playerText" id="playerName4"></h5>
+        <p class="score" id="playerScore4">0</p>
       </div>
     </section>
-
-    <div id="completionPopUp">
-      <div id="completionStatus">
-        <h2 id="completionMassage"></h2>
-        <h3 id="winners"></h3>
+    <section id="completion">
+      <div id="completionPopUp">
+        <div id="xContainer">
+          <i id="x" class="fa-solid fa-circle-xmark"></i>
+        </div>
+        <div id="completionStatus">
+          <img src="assests/Confetti.gif" alt="win celebration" />
+          <div id="completionTexts">
+            <h2 id="completionMassage"></h2>
+            <h3 id="winners"></h3>
+          </div>
+        </div>
+        <button id="playAgain" type="button">Play Again</button>
       </div>
-      <button id="playAgain" type="button">Play Again</button>
-    </div>
+    </section>
   </body>
 </html>

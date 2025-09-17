@@ -13,14 +13,14 @@ let players = [
     playerNameDisplay: document.querySelector("#playerName1"),
     playerScore: 0,
     playerScoreDisplay: document.querySelector("#playerScore1"),
-    color: "lightcoral",
+    color: "#f08080",
   },
   {
     playerName: sessionStorage.getItem("playerName2"),
     playerNameDisplay: document.querySelector("#playerName2"),
     playerScore: 0,
     playerScoreDisplay: document.querySelector("#playerScore2"),
-    color: "blue",
+    color: "#fbdd74",
   },
   {
     playerName: sessionStorage.getItem("playerName3"),
@@ -28,7 +28,7 @@ let players = [
     playerScore: 0,
     playerScoreDisplay: document.querySelector("#playerScore3"),
     playerDiv: document.querySelector("#player3"),
-    color: "green",
+    color: "#2cb67d",
   },
   {
     playerName: sessionStorage.getItem("playerName4"),
@@ -36,7 +36,7 @@ let players = [
     playerScore: 0,
     playerScoreDisplay: document.querySelector("#playerScore4"),
     playerDiv: document.querySelector("#player4"),
-    color: "yellow",
+    color: "#60c9d7ff",
   },
 ]
 const numberOfPlayers = parseInt(sessionStorage.getItem("numberOfPlayers"))
@@ -57,9 +57,11 @@ const turnMessage = document.querySelector("#turnMessage") // access the turn ma
 const resetButton = document.querySelector("#reset")
 const playAgainButton = document.querySelector("#playAgain")
 const redirect = document.querySelector("#redirect")
-const completionPopUp = document.querySelector("#completionPopUp")
+const completion = document.querySelector("#completion")
 const completionMassage = document.querySelector("#completionMassage")
 const winners = document.querySelector("#winners")
+const goBack = document.querySelector("#goBack")
+const xButton = document.querySelector("#x")
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////// functions /////////////////////////////////////////////////
@@ -68,14 +70,19 @@ let startUI = () => {
   let isBorder = false // for adding to UI, know if border class needed
   turnMessage.innerText = players[0].playerName
   players[0].playerNameDisplay.innerText = players[0].playerName
+  players[0].playerNameDisplay.style.backgroundColor = players[0].color
+  turnMessage.style.backgroundColor = players[0].color
   players[1].playerNameDisplay.innerText = players[1].playerName
+  players[1].playerNameDisplay.style.backgroundColor = players[1].color
   if (numberOfPlayers >= 3) {
-    players[2].playerDiv.style.display = "block"
+    players[2].playerDiv.style.display = "flex"
     players[2].playerNameDisplay.innerText = players[2].playerName
+    players[2].playerNameDisplay.style.backgroundColor = players[2].color
   }
   if (numberOfPlayers === 4) {
-    players[3].playerDiv.style.display = "block"
+    players[3].playerDiv.style.display = "flex"
     players[3].playerNameDisplay.innerText = players[3].playerName
+    players[3].playerNameDisplay.style.backgroundColor = players[3].color
   }
   for (let lineCount = 0; lineCount < 2 * height + 1; lineCount++) {
     for (let itemCount = 0; itemCount < line; itemCount++) {
@@ -85,9 +92,14 @@ let startUI = () => {
       gameBoard.appendChild(newDiv)
 
       if (lineCount === 0) {
-        isBorder
-          ? newDiv.classList.add(`i${boxCount}0`, "border", "horizontal")
-          : newDiv.classList.add("dot")
+        if (isBorder) {
+          newDiv.classList.add(`i${boxCount}0`, "border", "horizontal")
+        } else {
+          newDiv.classList.add("dot")
+          let circleDots = document.createElement("div")
+          circleDots.classList.add("circleDot")
+          newDiv.appendChild(circleDots)
+        }
       } else if (lineCount > 0 && lineCount < 2 * height) {
         if (lineCount % 2 == 0) {
           isBorder
@@ -129,12 +141,12 @@ let startUI = () => {
       isBorder = !isBorder
     }
   }
-  gameBoard.style.gridTemplateColumns = `repeat(${width}, 15px ${
-    100 / (1.25 * width)
-  }vh) 15px`
-  gameBoard.style.gridTemplateRows = `repeat(${height}, 15px ${
-    100 / (1.25 * width)
-  }vh) 15px`
+  gameBoard.style.gridTemplateColumns = `repeat(${width}, 12px ${
+    75 / (1.5 * height)
+  }vh) 12px`
+  gameBoard.style.gridTemplateRows = `repeat(${height}, 12px ${
+    75 / (1.5 * height)
+  }vh) 12px`
   borders = document.querySelectorAll(".border")
   boxes = document.querySelectorAll(".box")
 }
@@ -149,7 +161,6 @@ let adjustWhenCompletedBox = (completedBoxIndex) => {
 
 let checkWinBox = (index) => {
   isABoxCompleted = false
-  let completedBoxIndex
   let classListCopy = [...borders[index].classList].slice(0, -3)
   classListCopy.forEach((relationToBoxIndex) => {
     box = parseInt(relationToBoxIndex.slice(1, -1))
@@ -188,7 +199,7 @@ borders.forEach((border, index) => {
           for (let i = 0; i < numberOfPlayers; i++) {
             if (maxScore === players[i].playerScore) {
               numberOfWinners++
-              winners.innerText += players[i].playerName + "\n"
+              winners.innerHTML += `${players[i].playerName}<br/>`
             }
           }
           if (numberOfWinners == numberOfPlayers) {
@@ -197,11 +208,12 @@ borders.forEach((border, index) => {
           } else {
             completionMassage.innerText = "Winners"
           }
-          completionPopUp.style.display = "block"
+          completion.style.display = "flex"
         }
       } else {
         turnIndex = (turnIndex + 1) % numberOfPlayers
         turnMessage.innerText = players[turnIndex].playerName
+        turnMessage.style.backgroundColor = players[turnIndex].color
       }
     }
   })
@@ -209,7 +221,9 @@ borders.forEach((border, index) => {
 
 resetButton.addEventListener("click", () => {
   turnIndex = 0
+  choiceCount = 0
   turnMessage.innerText = players[0].playerName
+  turnMessage.style.backgroundColor = players[0].color
   for (let i = 0; i < numberOfPlayers; i++) {
     players[i].playerScore = 0
     players[i].playerScoreDisplay.innerText = "0"
@@ -218,10 +232,18 @@ resetButton.addEventListener("click", () => {
     if (border.classList.contains("clicked")) border.classList.toggle("clicked")
   })
   boxes.forEach((box) => {
-    box.style.backgroundColor = "cadetblue"
+    box.style.backgroundColor = "transparent"
   })
 })
 
 playAgainButton.addEventListener("click", () => {
   window.location.href = "index.html"
+})
+
+goBack.addEventListener("click", () => {
+  window.location.href = "index.html"
+})
+
+xButton.addEventListener("click", () => {
+  completion.style.display = "none"
 })
